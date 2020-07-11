@@ -3,6 +3,8 @@ Documentation       Aqui teremos todas as palavras de ação dos testes automati
 
 Library     SeleniumLibrary
 
+Library     libs/database.py
+
 Resource    pages/BasePage.robot
 Resource    pages/SideBar.robot
 Resource    pages/LoginPage.robot

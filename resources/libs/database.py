@@ -18,4 +18,3 @@ def remove_product_by_title(title):
     conn.close()
 
     
-remove_product_by_title('Donkey Kong')

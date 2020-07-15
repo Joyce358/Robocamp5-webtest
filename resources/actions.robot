@@ -8,6 +8,7 @@ Library     libs/database.py
 Resource    pages/BasePage.robot
 Resource    pages/SideBar.robot
 Resource    pages/LoginPage.robot
+Resource    pages/ProductPage.robot
 
 
 ***Keywords***
@@ -26,5 +27,26 @@ Então devo ser autenticado
 
 Então devo ver a mensagem de alerta "${expect_alert}"
     Wait Until Element Is Visible       ${DIV_ALERT}
-    Element Text Should Be              ${DIV_ALERT}    ${expect_alert}  
+    Element Text Should Be              ${DIV_ALERT}    ${expect_alert}
+
+#produtos
+
+
+Dado que tenho um novo produto
+    [Arguments]     ${json_file}
+
+    ${string_file}=         Get File    ${EXECDIR}/resources/fixtures/${json_file}
+    ${product_json}=        Evaluate     json.loads ($string_file)      json
+
+    Remove Product By Title     ${product_json['title']}            
+
+    Set Test Variable       ${product_json}    ##essa variável vai ficar disponível durante td execução do test case  
+
+Quando eu cadastro este produto
+    ProductPage.Go To Add Form
+    ProductPage.Create New Product  ${product_json}
+
+Então devo ver este item na lista
+    Table Should Contain    class:table     ${product_json['title']}
+  
     

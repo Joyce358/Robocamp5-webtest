@@ -3,8 +3,10 @@
     "cat": "Consoles",
     "price": "199.99",
     "desc": "Com Alex Kid na memória!",
-    "producers": "Sega",
-    "image": "master2.jpg"
+    "producers": [
+        "Sega"
+    ],
+    "file_name": "master2.jpg"
 
 
 

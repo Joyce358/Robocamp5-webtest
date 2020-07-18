@@ -6,6 +6,7 @@ Library     OperatingSystem
 
 Library     libs/database.py
 
+Resource    helpers.robot
 Resource    pages/BasePage.robot
 Resource    pages/SideBar.robot
 Resource    pages/LoginPage.robot
@@ -35,9 +36,7 @@ Então devo ver a mensagem de alerta "${expect_alert}"
 
 Dado que tenho um novo produto
     [Arguments]     ${json_file}
-
-    ${string_file}=         Get File    ${EXECDIR}/resources/fixtures/${json_file}
-    ${product_json}=        Evaluate     json.loads ($string_file)      json
+    ${product_json}=        Get Product Json      ${json_file}
 
     Remove Product By Title     ${product_json['title']}            
 
@@ -57,5 +56,32 @@ Então devo ver este item na lista
 Então devo ver a mensagem de alerta
     [Arguments]         ${expect_alert}
     Wait Until Element Contains     ${ALERT_DANGER}      ${expect_alert}
+
+# exclusão
+
+Dado que "${json_file}" é um produto indesejado
+
+    # Implementando com o conceito de Shared Steps
+    # Dado que tenho um novo produto          ${json_file}
+    # Quando faço o cadastro desse produto
+
+    # Implementando chamando as Keywords
+    ${product_json}=        Get Product Json      ${json_file}
+
+    Remove Product By Title     ${product_json['title']}     
+
+    ProductPage.Go To Add Form
+    ProductPage.Create New Product  ${product_json}  
+
+    Set Test Variable       ${product_json}    # essa variável vai ficar disponível durante td execução do test case  
+
+Quando solicito a Exclusão
+    ProductPage.Request Removal  ${product_json['title']}
+
+E confirmo a solicitação
+    ProductPage.Confirm Removal
+
+Então não devo ver esse item no catálogo
+    Wait Until Element Does Not Contain     class:table      ${product_json['title']} 
   
     

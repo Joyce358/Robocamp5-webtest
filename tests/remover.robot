@@ -12,14 +12,15 @@ Suite Teardown      Close Session
 Test Teardown       End Test  
 
 ***Test Cases***
-Novo produto
-    Dado que tenho um novo produto  dk.json
-    Quando faço o cadastro desse produto
-    Então devo ver este item na lista
+Apagar produto
+    [tags]    delete_product
+    Dado que "mario.json" é um produto indesejado
+    Quando solicito a Exclusão
+    E confirmo a solicitação
+    Então não devo ver esse item no catálogo
 
-Produto duplicado
-    [tags]      dup
-    Dado que tenho um novo produto   master.json
-    Mas este produto já foi cadastrado
-    Quando faço o cadastro desse produto
-    Então devo ver a mensagem de alerta     Oops - Este produto já foi cadastrado!
+Desistir da remoção
+    Dado que eu tenho o produto "zelda.json"
+    Quando solicito a Exclusão
+    Mas cancelo a solicitação
+    Então devo ver este item na lista

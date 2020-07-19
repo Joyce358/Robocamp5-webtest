@@ -33,7 +33,6 @@ Então devo ver a mensagem de alerta "${expect_alert}"
 
 # produtos
 
-
 Dado que tenho um novo produto
     [Arguments]     ${json_file}
     ${product_json}=        Get Product Json      ${json_file}
@@ -81,7 +80,10 @@ Quando solicito a Exclusão
 E confirmo a solicitação
     ProductPage.Confirm Removal
 
+Mas cancelo a solicitação
+    ProductPage.Cancel Removal
+
 Então não devo ver esse item no catálogo
-    Wait Until Element Does Not Contain     class:table      ${product_json['title']} 
+    Wait Until Element Does Not Contain     class:table     ${product_json['title']} 
   
     

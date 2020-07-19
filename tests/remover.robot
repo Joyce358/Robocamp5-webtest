@@ -20,7 +20,7 @@ Apagar produto
     Então não devo ver esse item no catálogo
 
 Desistir da remoção
-    Dado que eu tenho o produto "zelda.json"
+    Dado que "zelda.json" é um produto indesejado
     Quando solicito a Exclusão
     Mas cancelo a solicitação
     Então devo ver este item na lista

@@ -13,14 +13,16 @@ Go To Add Form
     Wait Until Element Is Visible   ${PRODUCT_ADD}
     Click Element                   ${PRODUCT_ADD}
 
-
 Request Removal
     [Arguments]     ${title}
 
     Click Element   xpath://tr[td//text()[contains(., '${title}')]]//button
 
 Confirm Removal
-    Click Element   class:swal2-confirm
+    Click Element       class:swal2-confirm
+
+Cancel Removal
+    Click Element       class:swal2-cancel
 
 Create New Product
     [Arguments]         ${product_json}  # seleciona categoria

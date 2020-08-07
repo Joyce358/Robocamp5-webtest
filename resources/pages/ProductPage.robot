@@ -4,14 +4,18 @@ Documentation       ProductPage -
 ...                 E também suas funcionalidades
 
 ***Variables***
-${PRODUCT_ADD}        class:product-add
-${ALERT_DANGER}       class:alert-danger
-${INPUT_PRODUCERS}    class:producers
+${PRODUCT_ADD}          class:product-add
+${INPUT_PRODUCERS}      class:producers
 
 ***Keywords***
 Go To Add Form
     Wait Until Element Is Visible   ${PRODUCT_ADD}
     Click Element                   ${PRODUCT_ADD}
+    Wait Until Page Contains        Novo Produto
+
+Go To Route Form
+    Go To       ${base_url}/admin/products/add
+    Wait Until Page Contains        Novo Produto
 
 Request Removal
     [Arguments]     ${title}
@@ -27,8 +31,11 @@ Cancel Removal
 Create New Product
     [Arguments]         ${product_json}  # seleciona categoria
 
-    Input Text          css:input[placeholder$="produto?"]      ${product_json['title']} 
-    Select Category     ${product_json['cat']} 
+    Input Text          css:input[placeholder$="produto?"]      ${product_json['title']}
+
+    Run Keyword If      "${product_json['cat']}"
+    ...         Select Category     ${product_json['cat']}
+
     Input Text          css:input[name=price]                   ${product_json['price']} 
     Input Producers     ${product_json['producers']}
     Input Text          css:textarea[name=description]          ${product_json['desc']}
